@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.title }} ({{ task.created_at }}) - {% if task.completed %}Done{% else %}Not Done{% endif %}</li>
+            <p>{% if task.description %}{{ task.description }}{% else %}No description{% endif %}</p>
+        {% empty %}
+            <li>No tasks yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

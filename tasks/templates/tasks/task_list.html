@@ -27,11 +27,18 @@
             </div>
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
+        <form method="get" class="mb-3">
+            <select name="filter" class="form-select" onchange="this.form.submit()">
+                <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All Tasks</option>
+                <option value="completed" {% if filter_type == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="not_completed" {% if filter_type == 'not_completed' %}selected{% endif %}>Not completed</option>
+            </select>
+        </form>
         <ul class="list-group">
             {% for task in tasks %}
                 <li class="list-group-item d-flex justify-content-between align-items-center {% if task.completed %}text-decoration-line-through{% endif %}">
                     <div>
-                        {{ task.title }} ({{ task.created_at }}) -
+                        {{ task.title }} ({{ task.created_at|date:"F d, Y" }}) -
                         {% if task.completed %}
                             <span class="badge bg-success">Done</span>
                         {% else %}

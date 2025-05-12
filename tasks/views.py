@@ -8,6 +8,12 @@ from .models import Task
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(user=request.user)
+    filter_type = request.GET.get("filter", "all")
+    if filter_type == "completed":
+        tasks = tasks.filter(completed=True)
+    elif filter_type == "not_completed":
+        tasks = tasks.filter(completed=False)
+    tasks = tasks.order_by("-created_at")
     if request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description", "")
@@ -19,7 +25,9 @@ def task_list(request):
             return render(
                 request, "tasks/task_list.html", {"tasks": tasks, "error": error}
             )
-    return render(request, "tasks/task_list.html", {"tasks": tasks})
+    return render(
+        request, "tasks/task_list.html", {"tasks": tasks, "filter_type": filter_type}
+    )
 
 
 @login_required

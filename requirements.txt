@@ -9,3 +9,4 @@ pathspec==0.12.1
 platformdirs==4.3.7
 python-decouple==3.8
 sqlparse==0.5.3
+whitenoise==6.9.0

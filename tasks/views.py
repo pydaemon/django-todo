@@ -55,3 +55,9 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, "registration/register.html", {"form": form})
+
+
+@login_required
+def clear_completed(request):
+    Task.objects.filter(completed=True).delete()
+    return redirect("task_list")

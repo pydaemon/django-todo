@@ -27,13 +27,19 @@
             </div>
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
-        <form method="get" class="mb-3">
-            <select name="filter" class="form-select" onchange="this.form.submit()">
-                <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All Tasks</option>
-                <option value="completed" {% if filter_type == 'completed' %}selected{% endif %}>Completed</option>
-                <option value="not_completed" {% if filter_type == 'not_completed' %}selected{% endif %}>Not completed</option>
-            </select>
-        </form>
+        <div class="mb-3 d-flex justify-content-between">
+            <form method="get" class="w-25">
+                <select name="filter" class="form-select" onchange="this.form.submit()">
+                    <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All Tasks</option>
+                    <option value="completed" {% if filter_type == 'completed' %}selected{% endif %}>Completed</option>
+                    <option value="not_completed" {% if filter_type == 'not_completed' %}selected{% endif %}>Not completed</option>
+                </select>
+            </form>
+            <form method="post" action="{% url 'clear_completed' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Clear Completed</button>
+            </form>
+        </div>
         <ul class="list-group">
             {% for task in tasks %}
                 <li class="list-group-item d-flex justify-content-between align-items-center {% if task.completed %}text-decoration-line-through{% endif %}">

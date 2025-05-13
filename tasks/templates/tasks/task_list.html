@@ -35,7 +35,7 @@
                     <option value="not_completed" {% if filter_type == 'not_completed' %}selected{% endif %}>Not completed</option>
                 </select>
             </form>
-            <form method="post" action="{% url 'clear_completed' %}">
+            <form method="post" action="{% url 'clear_completed' %}" onsubmit="return confirm('Are you sure you want to delete all completed tasks?');">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-danger">Clear Completed</button>
             </form>

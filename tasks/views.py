@@ -14,6 +14,8 @@ def task_list(request):
     elif filter_type == "not_completed":
         tasks = tasks.filter(completed=False)
     tasks = tasks.order_by("-created_at")
+    total_tasks = tasks.count()
+    completed_tasks = tasks.filter(completed=True).count()
     if request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description", "")
@@ -23,10 +25,24 @@ def task_list(request):
         else:
             error = "Title is required."
             return render(
-                request, "tasks/task_list.html", {"tasks": tasks, "error": error}
+                request,
+                "tasks/task_list.html",
+                {
+                    "tasks": tasks,
+                    "error": error,
+                    "total_tasks": total_tasks,
+                    "completed_tasks": completed_tasks,
+                },
             )
     return render(
-        request, "tasks/task_list.html", {"tasks": tasks, "filter_type": filter_type}
+        request,
+        "tasks/task_list.html",
+        {
+            "tasks": tasks,
+            "filter_type": filter_type,
+            "total_tasks": total_tasks,
+            "completed_tasks": completed_tasks,
+        },
     )
 
 

@@ -5,8 +5,8 @@ Users can register, log in, create tasks, mark them as completed, delete tasks, 
 
 ## Features
 - User authentication (register, login, logout)
-- Create, update, and delete tasks
-- Filter tasks by completion status
+- Create, update, edit and delete tasks
+- Filter tasks by completion status, clear completed tasks
 - Bootstrap for responsive design
 
 ## Setup

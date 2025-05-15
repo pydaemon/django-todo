@@ -6,3 +6,6 @@ body {
     margin-bottom: 10px;
     word-break: break-word;
 }
+li.list-group-item:hover {
+    background-color: #f1f1f1;
+}

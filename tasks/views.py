@@ -77,3 +77,22 @@ def register(request):
 def clear_completed(request):
     Task.objects.filter(completed=True).delete()
     return redirect("task_list")
+
+
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description", "")
+        if title:
+            task.title = title
+            task.description = description
+            task.save()
+            return redirect("task_list")
+        else:
+            error = "Title is required."
+            return render(
+                request, "tasks/edit_task.html", {"task": task, "error": error}
+            )
+    return render(request, "tasks/edit_task.html", {"task": task})
